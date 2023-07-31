@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="keywords" content="ChatBot WhatsApp">
+  <meta name="description" content="">
+  <title>ChatBot WhatsApp</title>
+  <link rel="stylesheet" href="assets/css/styles.css" media="screen">
+  <link rel="icon" type="image/x-icon" href="assets/images/icon.ico">
+  <script class="u-script" type="text/javascript" src="assets/js/jquery.js" defer=""></script>
+</head>
+<body>
+  <section id="app">
+    <div>
+      <h1>ChatBot WhatsApp</h1>
+      <div id="app">
+        <img src="" alt="QR Code" id="qrcode">
+        <h3>Logs de Conexão:</h3>
+        <p class="logs"></p>
+      </div>
+    </div>
+  </section>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" crossorigin="anonymous"></script>
+  <script>
+    $(document).ready(function () {
+      var socket = io();
+
+      socket.on('message', function (msg) {
+        $('.logs').append($('<li>').text(msg));
+      });
+
+      socket.on('qr', function (src) {
+        $('#qrcode').attr('src', src);
+        $('#qrcode').show();
+      });
+
+      socket.on('ready', function (data) {
+        $('#qrcode').hide();
+      });
+
+      socket.on('authenticated', function (data) {
+        $('#qrcode').hide();
+      });
+    });
+  </script>
+</body>
+</html>
