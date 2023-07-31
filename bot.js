@@ -1,4 +1,4 @@
-const { Client, LocalAuth } = require('whatsapp-web.js');
+const { Client, LocalAuth, NoAuth } = require('whatsapp-web.js');
 const express = require('express');
 const socketIO = require('socket.io');
 const qrcode = require('qrcode');
@@ -30,7 +30,8 @@ app.get('/', (req, res) => {
 });
 
 const client = new Client({
-  authStrategy: new LocalAuth({ clientId: 'chat-bot' }),
+  //authStrategy: new LocalAuth({ clientId: 'chat-bot' }),
+  authStrategy: new NoAuth(),
   puppeteer: { headless: true,
     args: [
       '--no-sandbox',
